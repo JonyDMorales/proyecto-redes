@@ -1,0 +1,32 @@
+<div class="row" style="margin-bottom: 100px;">
+    <div class="col-md-6">
+        <form class="form-group" (ngSubmit)="sendData(forma)" #forma="ngForm" novalidate="">
+            <label>IP: </label>
+            <input type="text" class="form-control" name="ip" [(ngModel)]="consulta.ip" placeholder="direccion ip" require>
+            <label>Comunidad: </label>
+            <input type="text" class="form-control" name="comunidad" [(ngModel)]="consulta.comunidad" placeholder="public" require>
+            <label>OID (object identifiers): </label>
+            <input type="text" class="form-control" name="oid" [(ngModel)]="consulta.oid" require>
+            <label>Version: </label>
+            <select (change)="change($event.target.value)" class="custom-select" name="version" [(ngModel)]="consulta.version" required>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+            </select>
+            <label *ngIf="bandera">Usuario: </label>
+            <input *ngIf="bandera" type="text" class="form-control" name="usuario" [(ngModel)]="consulta.usuario">
+            <label *ngIf="bandera">Auth: </label>
+            <input *ngIf="bandera" type="text" class="form-control" name="auth " [(ngModel)]="consulta.auth">
+
+            <div class="text-right" style="padding: 12px;">
+                <button class="btn btn-outline-primary btn-block">Consultar</button>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Respuesta:</label>
+            <textarea class="form-control rounded-0" name="respuesta" [(ngModel)]="consulta.respuesta" rows="5" readonly></textarea>
+        </div>
+    </div>
+</div>
