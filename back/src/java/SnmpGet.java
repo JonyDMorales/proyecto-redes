@@ -18,7 +18,10 @@ public class SnmpGet {
 
     public String snmpGet(String strAddress, String community, String strOID, int snmpVersion) {
         String str = "";
-        
+        System.out.println(strAddress);
+        System.out.println(community);
+        System.out.println(strOID);
+        System.out.println(snmpVersion);
         try {
             OctetString community1 = new OctetString(community);
             strAddress = strAddress + "/" + 161;
@@ -49,6 +52,7 @@ public class SnmpGet {
             response = snmp.get(pdu, comtarget);
             
             if (response != null) {
+                System.out.println(response.getResponse());
                 if (response.getResponse().getErrorStatusText().equalsIgnoreCase("Success")) {
                     PDU pduresponse = response.getResponse();
                     str = pduresponse.getVariableBindings().firstElement().toString();

@@ -12,8 +12,8 @@ export class FormComponent implements OnInit {
   consulta:Object = {
 		ip: null,
 		comunidad: null,
-    oid: null,
-    version: null,
+    oid: ".1.3.6.1.2.1.1.5.0",
+    version: 1,
     usuario: null,
     auth: null,
     respuesta: null

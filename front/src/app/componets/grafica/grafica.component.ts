@@ -17,12 +17,12 @@ export class GraficaComponent implements OnInit {
   
   constructor(private _conexionService: ConexionService) {
     this._conexionService.getSNMP().subscribe(res => {
-      //console.log(res);
+      
       for(let document in res['docs']){
         let doc = res['docs'][document]
-        for(let att in doc){
-          console.log(att);
-          console.log(doc[att]);
+        if(doc['pc'] == 'linux'){
+          if(doc['key'] == 'procesador')
+            console.log(doc['respuesta']);
         }
       }
     });

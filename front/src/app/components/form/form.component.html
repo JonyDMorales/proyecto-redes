@@ -6,7 +6,14 @@
             <label>Comunidad: </label>
             <input type="text" class="form-control" name="comunidad" [(ngModel)]="consulta.comunidad" placeholder="public" require>
             <label>OID (object identifiers): </label>
-            <input type="text" class="form-control" name="oid" [(ngModel)]="consulta.oid" require>
+            <!--<input type="text" class="form-control" name="oid" [(ngModel)]="consulta.oid" require>-->
+            <select class="form-control" name="oid" [(ngModel)]="consulta.oid">
+                <option value=".1.3.6.1.2.1.1.5.0">SysName</option>
+                <option value=".1.3.6.1.2.1.1.4.0">sysContact</option>
+                <option value=".1.3.6.1.2.1.25.1.1.0">sysUptime</option>
+                <option value=".1.3.6.1.4.1.2021.4.6.0">SysRAMUsed</option>
+                <option value=".1.3.6.1.4.1.2021.4.11.0">SysRAMFree</option>
+              </select>
             <label>Version: </label>
             <select (change)="change($event.target.value)" class="custom-select" name="version" [(ngModel)]="consulta.version" required>
               <option value="1">1</option>
@@ -17,7 +24,6 @@
             <input *ngIf="bandera" type="text" class="form-control" name="usuario" [(ngModel)]="consulta.usuario">
             <label *ngIf="bandera">Auth: </label>
             <input *ngIf="bandera" type="text" class="form-control" name="auth " [(ngModel)]="consulta.auth">
-
             <div class="text-right" style="padding: 12px;">
                 <button class="btn btn-outline-primary btn-block">Consultar</button>
             </div>
