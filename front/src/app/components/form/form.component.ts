@@ -36,6 +36,7 @@ export class FormComponent implements OnInit {
 
   public sendData(forma: NgForm): any {
     if(forma.valid){
+      this.consulta['respuesta'] = 'Enviando petición...';
       this._conexionService.setSNMP(this.consulta).subscribe( res => {
         if(res['res']){
           this.consulta['respuesta'] = res['res'];

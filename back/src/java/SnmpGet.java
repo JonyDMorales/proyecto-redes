@@ -51,7 +51,7 @@ public class SnmpGet {
             snmp = new Snmp(transport);
             response = snmp.get(pdu, comtarget);
             
-            if (response != null) {
+            if (response.getResponse() != null) {
                 System.out.println(response.getResponse());
                 if (response.getResponse().getErrorStatusText().equalsIgnoreCase("Success")) {
                     PDU pduresponse = response.getResponse();

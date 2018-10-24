@@ -44,18 +44,19 @@ public class SNMP {
     }
     
     public void monitoreo(){
-        String comunidad = "public";
-        String ip = "127.0.0.1";
-        String sysName = ".1.3.6.1.2.1.1.5.0";
-        String sysContact = ".1.3.6.1.2.1.1.4.0";
-        //String sysUptime = ".1.3.6.1.2.1.25.1.1.0";
         String pc = "linux";
+        String comunidad = "public";
+        String ip = "10.100.64.130";
+        String SysRAMUsed = ".1.3.6.1.4.1.2021.4.6.0";
+        String SysRAMFree = ".1.3.6.1.4.1.2021.4.11.0";
+        String SysCPU = ".1.3.6.1.4.1.2021.11.9.0";
         
         while(true){
             try{
-                getMIB(comunidad, ip, sysName, 2, "sysName", pc);
-                getMIB(comunidad, ip, sysContact, 2, "sysContact", pc);
-                Thread.sleep(60000);
+                getMIB(comunidad, ip, SysRAMUsed, 2, "SysRAMUsed", pc);
+                getMIB(comunidad, ip, SysRAMFree, 2, "SysRAMFree", pc);
+                getMIB(comunidad, ip, SysCPU, 2, "SysCPU", pc);
+                Thread.sleep(30000);
             } catch(InterruptedException ex){
                 Thread.currentThread().interrupt();
             }

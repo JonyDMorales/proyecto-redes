@@ -8,36 +8,52 @@ import { ConexionService } from '../../services/conexion.service';
 })
 export class GraficaComponent implements OnInit {
 
-  nombre :string = 'linux';
-  nombre2 :string = 'linux 2';;
-  nombre3 :string = 'router';;
-  contacto :string = 'jonatan_moralest@hotmail.com';;
-  contacto2 :string = 'antonio@hotmail.com';;
-  contacto3 :string = 'otro@hotmail.com';;
+  nombre :string = 'linux: antoniorf-NV56R';
+  nombre2 :string = 'router';
+  contacto :string = 'Me <me@example.org>';
+  contacto2 :string = 'antonio@hotmail.com';
   
+  public lineChartSysRAMUsed:Array<any> = [ {}, {}, {}];
+  public lineChartLabels:Array<any> = [];
+
   constructor(private _conexionService: ConexionService) {
+    this.getInformation();
+    //setTimeout(this.getInformation(), 10000);
+  }
+
+  getInformation(){
+    this.lineChartSysRAMUsed = [ {}, {}, {}];
+    this.lineChartLabels = [];
     this._conexionService.getSNMP().subscribe(res => {
+      let _line:Array<any> = new Array();
+      let sysRAMUsed :Array<any> = [];
+      let sysRAMFree :Array<any> = [];
+      let SysCPU :Array<any> = [];
       
       for(let document in res['docs']){
         let doc = res['docs'][document]
+        
         if(doc['pc'] == 'linux'){
-          if(doc['key'] == 'procesador')
-            console.log(doc['respuesta']);
+          if(doc['key'] == 'SysRAMUsed'){
+            sysRAMUsed.push(doc['respuesta']);
+          } else if(doc['key'] == 'SysRAMFree'){
+            sysRAMFree.push(doc['respuesta']);
+          }else if(doc['key'] == 'SysCPU'){
+            SysCPU.push(doc['respuesta']);
+            this.lineChartLabels.push(doc['created_at']);
+          }
         }
       }
+      _line[0] = {data: sysRAMUsed, label: 'sysRAMUsed'};
+      _line[1] = {data: sysRAMFree, label: 'sysRAMFree'};
+      _line[2] = {data: SysCPU, label: 'SysCPU'};
+      
+      this.lineChartSysRAMUsed = _line;
     });
   }
 
   ngOnInit() {
   }
-
-  public lineChartData:Array<any> = [
-    { data: [65, 59, 80, 81, 90], label: 'Procesador' },
-    { data: [28, 48, 40, 19, 100], label: 'Disco' },
-    { data: [18, 48, 77, 9, 10], label: 'RAM' },
-  ];
-
-  public lineChartLabels:Array<any> = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes'];
   
   public lineChartOptions:any = {
     responsive: true
